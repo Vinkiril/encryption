@@ -13,8 +13,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    vegenere.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    vegenere.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    vegenere.ui
