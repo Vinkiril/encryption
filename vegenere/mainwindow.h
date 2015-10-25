@@ -20,6 +20,8 @@ private slots:
 
     void on_decodeButton_clicked();
 
+    void on_genButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

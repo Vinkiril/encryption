@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 static QString alphabet="abcdefghijklmnopqrstuvwxyz0123456789 ";
 
 // нахер  я мозги себе взрывал если все так просто
-QString coder(QString alf,QString text,QString key){
+QString coder(QString text,QString key){
     QString result="";
     int k[text.length()];
     int l[key.length()];
@@ -25,20 +25,20 @@ QString coder(QString alf,QString text,QString key){
         return result="Длина ключа больше сообщения";
 
     for(int i=0;i<key.length();i++)
-        l[i]=alf.indexOf(key.at(i));
+        l[i]=alphabet.indexOf(key.at(i));
 
     int j=0;
     for(int i=0;i<text.length();i++){
-        k[i]=alf.indexOf(text.at(i));
+        k[i]=alphabet.indexOf(text.at(i));
         if (j==key.length())
             j=0;
-        result+=alf[(k[i]+l[j])%alf.length()];
+        result+=alphabet[(k[i]+l[j])%alphabet.length()];
         j++;
     }
     return result;
 }
 
-QString decoder(QString alf,QString text,QString key){
+QString decoder(QString text,QString key){
     QString result="";
     int k[text.length()];
     int l[key.length()];
@@ -46,26 +46,39 @@ QString decoder(QString alf,QString text,QString key){
         return result="Длина ключа больше сообщения";
 
     for(int i=0;i<key.length();i++)
-        l[i]=alf.indexOf(key.at(i));
+        l[i]=alphabet.indexOf(key.at(i));
 
     int j=0;
     for(int i=0;i<text.length();i++){
-        k[i]=alf.indexOf(text.at(i));
+        k[i]=alphabet.indexOf(text.at(i));
         if (j==key.length())
             j=0;
-        result+=alf[(k[i]-l[j]+alf.length())%alf.length()];
+        result+=alphabet[(k[i]-l[j]+alphabet.length())%alphabet.length()];
         j++;
     }
+    return result;
+}
+
+QString genkey(int n){
+    int i = 1+rand()% n;
+    QString result;
+    for(int j=0;j<i;j++)
+        result+=alphabet[rand()%(alphabet.length()-1)];
     return result;
 }
 
 void MainWindow::on_codeButton_clicked()
 {
-  ui->codeEdit->setText(coder(alphabet,ui->decodeEdit->text(),ui->keyEdit->text()));
+  ui->codeEdit->setText(coder(ui->decodeEdit->text(),ui->keyEdit->text()));
 
 }
 
 void MainWindow::on_decodeButton_clicked()
 {
-    ui->decodeEdit->setText(decoder(alphabet,ui->codeEdit->text(),ui->keyEdit->text()));
+    ui->decodeEdit->setText(decoder(ui->codeEdit->text(),ui->keyEdit->text()));
+}
+
+void MainWindow::on_genButton_clicked()
+{
+    ui->keyEdit->setText(genkey(ui->decodeEdit->text().length()));
 }
