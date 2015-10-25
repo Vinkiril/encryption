@@ -22,7 +22,7 @@ QString coder(QString text,QString key){
     int k[text.length()];
     int l[key.length()];
     if(key.length()>text.length())
-        return result="Длина ключа больше сообщения";
+        return result="error";
 
     for(int i=0;i<key.length();i++)
         l[i]=alphabet.indexOf(key.at(i));
@@ -43,7 +43,7 @@ QString decoder(QString text,QString key){
     int k[text.length()];
     int l[key.length()];
     if(key.length()>text.length())
-        return result="Длина ключа больше сообщения";
+        return result="error";
 
     for(int i=0;i<key.length();i++)
         l[i]=alphabet.indexOf(key.at(i));
@@ -60,8 +60,10 @@ QString decoder(QString text,QString key){
 }
 
 QString genkey(int n){
-    int i = 1+rand()% n;
     QString result="";
+    if(n<=0)
+        return result="error";
+    int i = 1+rand()% n;
     for(int j=0;j<i;j++)
         result+=alphabet[rand()%alphabet.length()];
     return result;
