@@ -61,9 +61,9 @@ QString decoder(QString text,QString key){
 
 QString genkey(int n){
     int i = 1+rand()% n;
-    QString result;
+    QString result="";
     for(int j=0;j<i;j++)
-        result+=alphabet[rand()%(alphabet.length()-1)];
+        result+=alphabet[rand()%alphabet.length()];
     return result;
 }
 
